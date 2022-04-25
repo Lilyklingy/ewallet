@@ -1,24 +1,44 @@
-import logo from './logo.svg';
 import './App.css';
+import { Routes, Route, Router } from 'react-router-dom';
+
+import Home from './views/Home';
+import AddCard from './views/AddCard';
+import Error from './views/Error';
 
 function App() {
+
+  addExampleCards();
+
+  function addExampleCards() {
+    const savedCards = [
+      {
+        number: "5948 3201 4865 1422", 
+        name: "Anna Andersson",
+        endDate: "04/24",
+        vendor: "Ninja",
+        ccv: 142 
+      },
+      { 
+        number: "7842 0406 4544 6580", 
+        name: "Anna Andersson",
+        endDate: "10/26",
+        vendor: "Blockchain",
+        ccv: 830 
+      }
+    ];
+    localStorage.clear();
+    localStorage.setItem("cardStack", JSON.stringify(savedCards));
+    console.log(savedCards);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <section className="App">
+      <Routes>
+        <Route path="/" element={ <Home/> } />
+        <Route path="/addcard" element={ <AddCard/> } />
+        <Route path="/*" element={ <Error/> } />
+      </Routes>
+    </section>
   );
 }
 
